@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, X, Truck } from "lucide-react";
+import { Menu, X, Truck, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -12,6 +14,7 @@ const Navigation = () => {
     { name: "Services", path: "/services" },
     { name: "Tracking", path: "/tracking" },
     { name: "Contact", path: "/contact" },
+    ...(user ? [{ name: "Dashboard", path: "/dashboard" }] : []),
   ];
 
   return (
@@ -50,11 +53,25 @@ const Navigation = () => {
             </div>
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button variant="secondary" className="font-medium">
-              Get Quote
-            </Button>
+          {/* Auth Section */}
+          <div className="hidden md:flex items-center space-x-4">
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <span className="text-sm text-muted-foreground">
+                  Welcome, {user.email?.split('@')[0]}
+                </span>
+                <Button onClick={signOut} variant="outline" size="sm">
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <NavLink to="/auth">
+                <Button variant="default" size="sm" className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  Sign In
+                </Button>
+              </NavLink>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -90,10 +107,25 @@ const Navigation = () => {
                   {item.name}
                 </NavLink>
               ))}
-              <div className="pt-2">
-                <Button variant="secondary" className="w-full font-medium">
-                  Get Quote
-                </Button>
+              
+              <div className="pt-4 border-t border-border">
+                {user ? (
+                  <div className="space-y-2">
+                    <p className="text-sm text-muted-foreground px-3">
+                      Welcome, {user.email?.split('@')[0]}
+                    </p>
+                    <Button onClick={signOut} variant="outline" className="w-full">
+                      Sign Out
+                    </Button>
+                  </div>
+                ) : (
+                  <NavLink to="/auth" onClick={() => setIsOpen(false)}>
+                    <Button variant="default" className="w-full flex items-center gap-2">
+                      <User className="h-4 w-4" />
+                      Sign In
+                    </Button>
+                  </NavLink>
+                )}
               </div>
             </div>
           </div>
