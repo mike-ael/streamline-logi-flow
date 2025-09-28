@@ -14,13 +14,126 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          phone: string | null
+          status: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          phone?: string | null
+          status?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          phone?: string | null
+          status?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          company_name: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          role: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          company_name?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          role?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          company_name?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          role?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      shipments: {
+        Row: {
+          actual_delivery: string | null
+          created_at: string
+          customer_id: string | null
+          destination: string
+          estimated_delivery: string | null
+          id: string
+          notes: string | null
+          origin: string
+          service_type: string
+          status: string | null
+          tracking_id: string
+          updated_at: string
+          weight: number | null
+        }
+        Insert: {
+          actual_delivery?: string | null
+          created_at?: string
+          customer_id?: string | null
+          destination: string
+          estimated_delivery?: string | null
+          id?: string
+          notes?: string | null
+          origin: string
+          service_type: string
+          status?: string | null
+          tracking_id: string
+          updated_at?: string
+          weight?: number | null
+        }
+        Update: {
+          actual_delivery?: string | null
+          created_at?: string
+          customer_id?: string | null
+          destination?: string
+          estimated_delivery?: string | null
+          id?: string
+          notes?: string | null
+          origin?: string
+          service_type?: string
+          status?: string | null
+          tracking_id?: string
+          updated_at?: string
+          weight?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_tracking_id: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
